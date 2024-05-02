@@ -25,7 +25,7 @@ const Home = () =>{
                     3. Il y'a plusieurs catégories différentes. Par défaut, vous avez des questions de toutes les catégories mais vous pouvez en séléctionner une dans les réglages.
                 </Text>
                 <Text style={style.regle}>
-                    4. À chaque question vous aurez 4 réponse, seule une est correct.
+                    4. Vous avez 15 questions aléatoires. À chaque question vous aurez 4 réponse, seule une est correct.
                 </Text>
                 <Text style={style.regle}>
                     5. Votre score sera visible en haut de la page.
