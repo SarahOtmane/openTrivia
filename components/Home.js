@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Pressable } from 'react-native';
 
 import style from '../style.js';
 import { useNavigation } from '@react-navigation/native';
@@ -31,10 +31,10 @@ const Home = () =>{
                     5. Votre score sera visible en haut de la page.
                 </Text>
                 <Button title="Commancer le jeux"
-                    buttonStyle={style.button}
                     onPress={() => {
-                        navigation.navigate('Quizz')
+                        navigation.navigate('Quiz')
                     }}
+                    color="#841584"
                 />
             </View>
         </View>
