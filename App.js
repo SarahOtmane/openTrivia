@@ -18,7 +18,7 @@ const App = () =>{
 
                         if(route.name === 'Home'){
                             iconName = focused ? 'home' : 'home-outline';
-                        }else if(route.name === 'About'){
+                        }else if(route.name === 'Quiz'){
                             iconName = focused ? 'information-circle' : 'information-circle-outline';
                         }else if(route.name === 'Third'){
                             iconName = focused ? 'search' : 'search-outline';
