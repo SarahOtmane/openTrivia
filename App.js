@@ -5,11 +5,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './components/Home';
 import Quizz from './components/Quizz';
 import Reglages from './components/Reglages';
+import { useState } from 'react';
 
 
 const Tab = createBottomTabNavigator();
 
 const App = () =>{
+    const [Categorie , setCategorie]  = useState("-1");
+    const [Difficulte , setDifficulte]  = useState("-1");
+
     return(
         <NavigationContainer>
             <Tab.Navigator 
@@ -43,25 +47,37 @@ const App = () =>{
 
                 <Tab.Screen 
                     name="Quiz" 
-                    component={Quizz} 
                     options={{
                         title:"Quiz", 
                         headerStyle: {
                             backgroundColor: '#6d75b5'
                         }
-                    }} 
-                /> 
+                    }}
+                >
+                    {() => <Quizz 
+                        Categorie={Categorie} 
+                        Difficulte={Difficulte} 
+                        setCategorie={setCategorie}
+                        setDifficulte={setDifficulte}
+                    />}
+                </Tab.Screen> 
 
                 <Tab.Screen 
                     name="Reglages" 
-                    component={Reglages} 
                     options={{
                         title:"Réglages", 
                         headerStyle: {
                             backgroundColor: '#6d75b5'
                         }
                     }} 
-                /> 
+                >
+                    {() => <Reglages 
+                        Categorie={Categorie} 
+                        Difficulte={Difficulte} 
+                        setCategorie={setCategorie}
+                        setDifficulte={setDifficulte}
+                    />}
+                </Tab.Screen>
             </Tab.Navigator>
         </NavigationContainer>
     )
