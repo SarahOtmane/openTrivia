@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Home from './components/Home';
+import Quizz from './components/Quizz';
 
 
 const Tab = createBottomTabNavigator();
@@ -33,6 +34,17 @@ const App = () =>{
                     component={Home} 
                     options={{
                         title:"Home", 
+                        headerStyle: {
+                            backgroundColor: '#6d75b5'
+                        }
+                    }} 
+                /> 
+
+                <Tab.Screen 
+                    name="Quiz" 
+                    component={Quizz} 
+                    options={{
+                        title:"Quiz", 
                         headerStyle: {
                             backgroundColor: '#6d75b5'
                         }
