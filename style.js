@@ -24,9 +24,4 @@ export default StyleSheet.create({
         padding: 20,
         textAlign: 'justify'
     },
-
-    button: {
-        backgroundColor: '#000', // Couleur de fond du bouton
-        marginTop: 20, 
-    },
 })
