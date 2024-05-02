@@ -6,7 +6,6 @@ import {Picker} from "@react-native-picker/picker";
 import style from '../style.js';
 
 const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
-    console.log(Categorie);
     return(
         <View style={style.container}>
             <Text style={style.title}>Modifier vos réglages</Text>
