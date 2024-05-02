@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, Button} from 'react-native';
 
 import {Picker} from "@react-native-picker/picker";
 
 import style from '../style.js';
 
-const Reglages = () =>{
-    const [Categorie , setCategorie]  = useState("-1");
-    const [Difficulte , setDifficulte]  = useState("-1");
-
+const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
+    console.log(Categorie);
     return(
         <View style={style.container}>
             <Text style={style.title}>Modifier vos réglages</Text>
@@ -35,7 +33,7 @@ const Reglages = () =>{
                     <Picker.Item label="Science: Mathematics" value="19" />
                 </Picker>
             
-                <Text style={[style.sousTitre, style.label]} >Choisissez la difféculté.</Text>
+                <Text style={[style.sousTitre, style.label]} >Choisissez la difficulté.</Text>
                 <Picker
                   selectedValue={Difficulte}
                   mode={"dialog"}
