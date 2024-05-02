@@ -1,6 +1,6 @@
 
 
-const Quizz = () =>{
+const Quizz = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
     return(
         <></>
     )
