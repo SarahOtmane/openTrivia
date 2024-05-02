@@ -24,4 +24,14 @@ export default StyleSheet.create({
         padding: 20,
         textAlign: 'justify'
     },
+
+    picker: {
+        width: 250,
+        height: 50,
+        marginBottom: 100,
+    },
+
+    label: {
+        marginTop: 100,
+    },
 })
