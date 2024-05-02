@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, Button, Pressable } from 'react-native';
+import { Text, View, Button} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import style from '../style.js';
-import { useNavigation } from '@react-navigation/native';
 
 
 const Home = () =>{
