@@ -57,8 +57,6 @@ const App = () =>{
                     {() => <Quizz 
                         Categorie={Categorie} 
                         Difficulte={Difficulte} 
-                        setCategorie={setCategorie}
-                        setDifficulte={setDifficulte}
                     />}
                 </Tab.Screen> 
 
