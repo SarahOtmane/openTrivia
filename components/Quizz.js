@@ -3,11 +3,9 @@ import { Text, View, ActivityIndicator, Button} from 'react-native';
 
 import style from '../style.js';
 
-const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, setIndex}) =>{
+const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, setIndex, score, setScore}) =>{
     //recup la reponse selectionnée pour chaque question
     const [selectedAnswer, setSelectedAnswer] = useState(null);
-
-    const [score, setScore] = useState(0);
 
 
     useEffect(() =>{ 
