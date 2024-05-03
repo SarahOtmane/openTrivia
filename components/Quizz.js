@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, ActivityIndicator, Button} from 'react-native';
+import { decode } from 'he';
 
 import style from '../style.js';
+
 
 const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, setIndex, score, setScore}) =>{
     //recup la reponse selectionnée pour chaque question
@@ -64,7 +66,7 @@ const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, s
             <View style={style.container}>
                 <Text>Votre score est à : {score}</Text>
                 <Text style={style.title} >Question n°{index+1} : </Text>
-                <Text>{currentQuestion.question}</Text>
+                <Text>{decode(currentQuestion.question)}</Text>
                 {answers.map((answer, index) => (
                     <Button 
                         key={index}
