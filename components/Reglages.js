@@ -34,10 +34,8 @@ const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuesti
 
     return(
         <View style={style.container}>
-            <Text style={style.title}>Modifier vos réglages</Text>
-
             <View style={style.container}>
-                <Text style={style.sousTitre} >Choisissez une catégorie.</Text>
+                <Text style={style.label} >Choisissez une catégorie.</Text>
                 <Picker
                   selectedValue={Categorie}
                   mode={"dialog"}
@@ -58,7 +56,7 @@ const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuesti
                     <Picker.Item label="Science: Mathematics" value="19" />
                 </Picker>
             
-                <Text style={[style.sousTitre, style.label]} >Choisissez la difficulté.</Text>
+                <Text style={[style.label, style.labelTwo]} >Choisissez la difficulté.</Text>
                 <Picker
                   selectedValue={Difficulte}
                   mode={"dialog"}
