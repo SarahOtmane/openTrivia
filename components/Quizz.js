@@ -38,7 +38,13 @@ const Quizz = ({Categorie, Difficulte}) =>{
                 }
             }
             const data = await response.json();
-            setQuestions(data.results);
+
+            if (data.results && data.results.length > 0) {
+                setQuestions(data.results);
+                setCurrentIndex(0); 
+            } else {
+                console.error('Erreur: Aucune question retournée depuis l\'API');
+            }
 
         } catch (error) {
             console.error('Erreur lors du fetch des questions : ', error);
@@ -80,10 +86,10 @@ const Quizz = ({Categorie, Difficulte}) =>{
             setCurrentIndex(prevCurrentIndex => prevCurrentIndex + 1);
         }else{
             setIndex(prevIndex => prevIndex + 1);
-            setCurrentIndex(0);
             getQuestions(); 
         }
     }
+
 
     //si les questions ne sont pas encore chargées, on affiche un message d'attente
     if(questions.length === 0){
