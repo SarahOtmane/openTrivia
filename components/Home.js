@@ -13,9 +13,9 @@ const Home = () =>{
             <Text style={style.title}>Quizz Trivia</Text>
             
             <View style={[style.container, style.regle]} >
-                <Text style={style.sousTitre}>Règles du jeux : </Text>
+                <Text style={style.sousTitre}>Règles du jeu : </Text>
                 <Text style={style.regle}>
-                    1. Toutes les questions de ce quizz seront à choix multiples
+                    1. Toutes les questions de ce quizz seront à choix multiples.
                 </Text>
                 <Text style={style.regle}>
                     2. Il y'a trois modes de difficultés (facile/moyen/difficile).
@@ -25,12 +25,12 @@ const Home = () =>{
                     3. Il y'a plusieurs catégories différentes. Par défaut, vous avez des questions de toutes les catégories mais vous pouvez en séléctionner une dans les réglages.
                 </Text>
                 <Text style={style.regle}>
-                    4. Vous avez 15 questions aléatoires. À chaque question vous aurez 4 réponse, seule une est correct.
+                    4. Vous avez 15 questions aléatoires. À chaque question vous aurez 4 réponses, seule une est correct.
                 </Text>
                 <Text style={style.regle}>
                     5. Votre score sera visible en haut de la page.
                 </Text>
-                <Button title="Commancer le jeux"
+                <Button title="Commancer le jeu"
                     onPress={() => {
                         navigation.navigate('Quiz')
                     }}
