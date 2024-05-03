@@ -4,40 +4,49 @@ import { Text, View, ActivityIndicator, Button} from 'react-native';
 import style from '../style.js';
 
 const Quizz = ({Categorie, Difficulte}) =>{
+    //tableau qui stocke les questions
     const [questions, setQuestions] = useState([]);
+
+    //index qui permet de parcourir le tableau ou je stocke les question 
+    const [currentIndex, setCurrentIndex] = useState(0); 
+    
+    //index qui permet d'afficher le nb de questions auquelles on a repondu
     const [index, setIndex] = useState(0);
+
+    //recup la reponse selectionnée pour chaque question
     const [selectedAnswer, setSelectedAnswer] = useState(null);
+
     const [score, setScore] = useState(0);
 
     //Récup les 15 questions depuis l api externe
     //Si l utilisateur n'a pas choisis de categorie donc categorie = -1 (pareil pour la diff)
-    useEffect(() =>{ 
-        const getQuestions = async() =>{
-            try {
-                let response; 
+    const getQuestions = async() =>{
+        try {
+            let response; 
 
-                if(Difficulte != '-1'){
-                    if(Categorie != '-1'){
-                        response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&difficulty=${Difficulte}&type=multiple`);
-                    }else{
-                        response = await fetch(`https://opentdb.com/api.php?amount=15&difficulty=${Difficulte}&type=multiple`); 
-                    }
+            if(Difficulte != '-1'){
+                if(Categorie != '-1'){
+                    response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&difficulty=${Difficulte}&type=multiple`);
                 }else{
-                    if(Categorie != '-1'){
-                        response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&type=multiple`);
-                    }else{
-                        response = await fetch(`https://opentdb.com/api.php?amount=15&type=multiple`); 
-                    }
+                    response = await fetch(`https://opentdb.com/api.php?amount=15&difficulty=${Difficulte}&type=multiple`); 
                 }
-                const data = await response.json();
-                setQuestions(data.results);
-
-            } catch (error) {
-                console.error('Erreur lors du fetch des questions : ', error);
+            }else{
+                if(Categorie != '-1'){
+                    response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&type=multiple`);
+                }else{
+                    response = await fetch(`https://opentdb.com/api.php?amount=15&type=multiple`); 
+                }
             }
-        }
+            const data = await response.json();
+            setQuestions(data.results);
 
-        getQuestions() 
+        } catch (error) {
+            console.error('Erreur lors du fetch des questions : ', error);
+        }
+    }
+
+    useEffect(() =>{ 
+        getQuestions() ;
     },[]);
 
     //fonction qui permet de mélanger la bonne réponse avec les mauvaises
@@ -55,9 +64,11 @@ const Quizz = ({Categorie, Difficulte}) =>{
         //met a jour le score
         //elle remet a null la reponse choisis
         //modifier l'index de la question actuelle
+        //Si index est inferieur a 15, on passe a la question suivante
+        //sinon on recupere 15 nouvelles questions
     const nextQuestion = () =>{
         //mettre a jour le score si la reponse est bonne
-        if(selectedAnswer == questions[index].correct_answer) setScore(prevIndex => prevIndex + 1);
+        if(selectedAnswer == questions[currentIndex].correct_answer) setScore(prevIndex => prevIndex + 1);
 
         //mettre le state qui gere la reponse selection a null
         setSelectedAnswer(null);
@@ -66,8 +77,11 @@ const Quizz = ({Categorie, Difficulte}) =>{
         //sinon continuer la partie en recuperant 15 autres questions
         if(index+1<questions.length){
             setIndex(prevIndex => prevIndex + 1);
+            setCurrentIndex(prevCurrentIndex => prevCurrentIndex + 1);
         }else{
-            getQuestions() 
+            setIndex(prevIndex => prevIndex + 1);
+            setCurrentIndex(0);
+            getQuestions(); 
         }
     }
 
@@ -79,9 +93,9 @@ const Quizz = ({Categorie, Difficulte}) =>{
                 <ActivityIndicator color={style.color} size='large' />
             </View>
         )
-    }else if(!isFinished && questions.length>0){
+    }else{
         //Récup la question actuelle
-        const currentQuestion = questions[index];
+        const currentQuestion = questions[currentIndex];
         const answers = malangeAnswer([...currentQuestion.incorrect_answers, currentQuestion.correct_answer]);
         return(
             <View style={style.container}>
@@ -100,22 +114,6 @@ const Quizz = ({Categorie, Difficulte}) =>{
                     title="Suivant" 
                     onPress={nextQuestion} 
                     disabled={selectedAnswer === null}
-                />
-            </View>
-        )
-    }else  if(isFinished){
-        return(
-            <View style={style.container}>
-                <Text>Fin du quiz !</Text>
-                <Text>Votre score est de : {score}/{questions.length}</Text>
-                <Button 
-                    title="Rejouer" 
-                    onPress={() => {
-                        setIsFinished(false);
-                        setIndex(0);
-                        setSelectedAnswer(null);
-                        setScore(0);
-                    }} 
                 />
             </View>
         )
