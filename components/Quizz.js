@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, ActivityIndicator, FlatList} from 'react-native';
+import { Text, View, ActivityIndicator, Button} from 'react-native';
 
 import style from '../style.js';
 
 const Quizz = ({Categorie, Difficulte}) =>{
     const [questions, setQuestions] = useState([]);
-    const [index, setIndex] = useState(1);
+    const [index, setIndex] = useState(0);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [score, setScore] = useState(0);
 
+    //Récup les 15 questions depuis l api externe
+    //Si l utilisateur n'a pas choisis de categorie donc categorie = -1 (pareil pour la diff)
     useEffect(() =>{ 
-        
         const getQuestions = async() =>{
             try {
                 let response; 
@@ -37,6 +40,38 @@ const Quizz = ({Categorie, Difficulte}) =>{
         getQuestions() 
     },[]);
 
+    //fonction qui permet de mélanger la bonne réponse avec les mauvaises
+    const malangeAnswer = (answers) => {
+        const melangeAnswer = [...answers].sort(() => Math.random() - 0.5);
+        return melangeAnswer;
+    }
+
+    //fonction qui permet de récupérer la réponse sélectionnée et de l'enreg dans le state
+    const recupAnswer = (answer) =>{ 
+        setSelectedAnswer(answer);
+    }
+
+    //fonction qui permet de passer à la question suivante
+        //met a jour le score
+        //elle remet a null la reponse choisis
+        //modifier l'index de la question actuelle
+    const nextQuestion = () =>{
+        //mettre a jour le score si la reponse est bonne
+        if(selectedAnswer == questions[index].correct_answer) setScore(prevIndex => prevIndex + 1);
+
+        //mettre le state qui gere la reponse selection a null
+        setSelectedAnswer(null);
+
+        //passer a la question suivante si on a pas encore atteint les 15questions
+        //sinon continuer la partie en recuperant 15 autres questions
+        if(index+1<questions.length){
+            setIndex(prevIndex => prevIndex + 1);
+        }else{
+            getQuestions() 
+        }
+    }
+
+    //si les questions ne sont pas encore chargées, on affiche un message d'attente
     if(questions.length === 0){
         return(
             <View style={style.container}>
@@ -44,18 +79,44 @@ const Quizz = ({Categorie, Difficulte}) =>{
                 <ActivityIndicator color={style.color} size='large' />
             </View>
         )
-    }else{
+    }else if(!isFinished && questions.length>0){
+        //Récup la question actuelle
+        const currentQuestion = questions[index];
+        const answers = malangeAnswer([...currentQuestion.incorrect_answers, currentQuestion.correct_answer]);
         return(
             <View style={style.container}>
-                {/* <FlatList
-                    data={questions}
-                    keyExtractor={(item, index) => index.toString()} 
-                    renderItem={({item}) =>(
-                        <View style={style.container}>
-                            <Text>{item.question}</Text>
-                        </View>
-                    )}
-                /> */}
+                <Text>Votre score est à : {score}</Text>
+                <Text style={style.title} >Question n°{index+1} : </Text>
+                <Text>{currentQuestion.question}</Text>
+                {answers.map((answer, index) => (
+                    <Button 
+                        key={index}
+                        title={answer} 
+                        onPress={() => recupAnswer(answer)} 
+                        disabled={selectedAnswer !== null}
+                    />
+                ))}
+                <Button 
+                    title="Suivant" 
+                    onPress={nextQuestion} 
+                    disabled={selectedAnswer === null}
+                />
+            </View>
+        )
+    }else  if(isFinished){
+        return(
+            <View style={style.container}>
+                <Text>Fin du quiz !</Text>
+                <Text>Votre score est de : {score}/{questions.length}</Text>
+                <Button 
+                    title="Rejouer" 
+                    onPress={() => {
+                        setIsFinished(false);
+                        setIndex(0);
+                        setSelectedAnswer(null);
+                        setScore(0);
+                    }} 
+                />
             </View>
         )
     }
