@@ -3,57 +3,16 @@ import { Text, View, ActivityIndicator, Button} from 'react-native';
 
 import style from '../style.js';
 
-const Quizz = ({Categorie, Difficulte}) =>{
-    //tableau qui stocke les questions
-    const [questions, setQuestions] = useState([]);
-
-    //index qui permet de parcourir le tableau ou je stocke les question 
-    const [currentIndex, setCurrentIndex] = useState(0); 
-    
-    //index qui permet d'afficher le nb de questions auquelles on a repondu
-    const [index, setIndex] = useState(0);
-
+const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, setIndex}) =>{
     //recup la reponse selectionnée pour chaque question
     const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     const [score, setScore] = useState(0);
 
-    //Récup les 15 questions depuis l api externe
-    //Si l utilisateur n'a pas choisis de categorie donc categorie = -1 (pareil pour la diff)
-    const getQuestions = async() =>{
-        try {
-            let response; 
-
-            if(Difficulte != '-1'){
-                if(Categorie != '-1'){
-                    response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&difficulty=${Difficulte}&type=multiple`);
-                }else{
-                    response = await fetch(`https://opentdb.com/api.php?amount=15&difficulty=${Difficulte}&type=multiple`); 
-                }
-            }else{
-                if(Categorie != '-1'){
-                    response = await fetch(`https://opentdb.com/api.php?amount=15&category=${Categorie}&type=multiple`);
-                }else{
-                    response = await fetch(`https://opentdb.com/api.php?amount=15&type=multiple`); 
-                }
-            }
-            const data = await response.json();
-
-            if (data.results && data.results.length > 0) {
-                setQuestions(data.results);
-                setCurrentIndex(0); 
-            } else {
-                console.error('Erreur: Aucune question retournée depuis l\'API');
-            }
-
-        } catch (error) {
-            console.error('Erreur lors du fetch des questions : ', error);
-        }
-    }
 
     useEffect(() =>{ 
         getQuestions() ;
-    },[Categorie, Difficulte]);
+    },[]);
 
     //fonction qui permet de mélanger la bonne réponse avec les mauvaises
     const malangeAnswer = (answers) => {
