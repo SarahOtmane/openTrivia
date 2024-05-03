@@ -66,7 +66,7 @@ const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, s
             <View style={style.container}>
                 <Text>Votre score est à : {score}</Text>
                 <Text style={style.title} >Question n°{index+1} : </Text>
-                <Text>{decode(currentQuestion.question)}</Text>
+                <Text style={style.question} >{decode(currentQuestion.question)}</Text>
                 {answers.map((answer, index) => (
                     <Button 
                         key={index}
