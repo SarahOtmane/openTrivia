@@ -5,17 +5,21 @@ import {Picker} from "@react-native-picker/picker";
 
 import style from '../style.js';
 
-const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuestions, setIndex}) =>{
+const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuestions, setIndex, setScore}) =>{
     const changeDiff = (diff) =>{
         setDifficulte(diff); 
-        getQuestions();
-        setIndex(0);
+        change();
     }
 
     const changeCatego = (Catego) =>{
         setCategorie(Catego); 
+        change();
+    }
+
+    const change = () =>{
         getQuestions();
         setIndex(0);
+        setScore(0)
     }
 
 
