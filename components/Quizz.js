@@ -70,7 +70,7 @@ const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, s
                 {answers.map((answer, index) => (
                     <Button 
                         key={index}
-                        title={answer} 
+                        title={decode(answer)} 
                         onPress={() => recupAnswer(answer)} 
                         disabled={selectedAnswer !== null}
                     />
@@ -79,6 +79,7 @@ const Quizz = ({getQuestions, questions, currentIndex, setCurrentIndex, index, s
                     title="Suivant" 
                     onPress={nextQuestion} 
                     disabled={selectedAnswer === null}
+                    color="#841584"
                 />
             </View>
         )
