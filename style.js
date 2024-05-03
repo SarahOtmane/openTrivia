@@ -32,7 +32,12 @@ export default StyleSheet.create({
     },
 
     label: {
-        marginTop: 100,
+        fontSize: 40,
+        fontWeight: 'bold',
+    },
+
+    labelTwo: {
+        marginTop: 80
     },
 
     question: {
