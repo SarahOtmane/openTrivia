@@ -34,4 +34,9 @@ export default StyleSheet.create({
     label: {
         marginTop: 100,
     },
+
+    question: {
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+    },
 })
