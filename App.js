@@ -20,6 +20,8 @@ const App = () =>{
     //index qui permet d'afficher le nb de questions auquelles on a repondu
     const [index, setIndex] = useState(0);
 
+    const [score, setScore] = useState(0);
+
     const [Categorie , setCategorie]  = useState("-1");
     const [Difficulte , setDifficulte]  = useState("-1");
 
@@ -104,6 +106,8 @@ const App = () =>{
                         setCurrentIndex={setCurrentIndex}
                         index={index}
                         setIndex={setIndex}
+                        score={score}
+                        setScore={setScore}
                     />}
                 </Tab.Screen> 
 
@@ -123,6 +127,7 @@ const App = () =>{
                         setDifficulte={setDifficulte}
                         getQuestions={getQuestions}
                         setIndex={setIndex}
+                        setScore={setScore}
                     />}
                 </Tab.Screen>
             </Tab.Navigator>
