@@ -6,6 +6,14 @@ import {Picker} from "@react-native-picker/picker";
 import style from '../style.js';
 
 const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuestions, setIndex, setScore}) =>{
+    
+    /* si ya un changement dans les reglages
+        - enreg la nouvelle valeur du regalge
+        - débuter une autre partie en :
+            - executer la fonction qui fetch avec les nv valeurs
+            - remettre le score et l index a 0
+    */
+            
     const changeDiff = (diff) =>{
         setDifficulte(diff); 
         change();
@@ -15,7 +23,7 @@ const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuesti
         setCategorie(Catego); 
         change();
     }
-
+    
     const change = () =>{
         getQuestions();
         setIndex(0);
