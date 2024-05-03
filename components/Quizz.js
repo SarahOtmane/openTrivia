@@ -47,7 +47,7 @@ const Quizz = ({Categorie, Difficulte}) =>{
 
     useEffect(() =>{ 
         getQuestions() ;
-    },[]);
+    },[Categorie, Difficulte]);
 
     //fonction qui permet de mélanger la bonne réponse avec les mauvaises
     const malangeAnswer = (answers) => {
