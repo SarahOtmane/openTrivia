@@ -5,7 +5,21 @@ import {Picker} from "@react-native-picker/picker";
 
 import style from '../style.js';
 
-const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
+const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte, getQuestions, setIndex}) =>{
+    const changeDiff = (diff) =>{
+        setDifficulte(diff); 
+        getQuestions();
+        setIndex(0);
+    }
+
+    const changeCatego = (Catego) =>{
+        setCategorie(Catego); 
+        getQuestions();
+        setIndex(0);
+    }
+
+
+
     return(
         <View style={style.container}>
             <Text style={style.title}>Modifier vos réglages</Text>
@@ -15,7 +29,7 @@ const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
                 <Picker
                   selectedValue={Categorie}
                   mode={"dialog"}
-                  onValueChange={(catego) => setCategorie(catego)}
+                  onValueChange={(catego) => changeCatego(catego)}
                   style={style.picker}
                 >
                     <Picker.Item label="Any Category" value="-1" />
@@ -36,7 +50,7 @@ const Reglages = ({Categorie, setCategorie, Difficulte, setDifficulte}) =>{
                 <Picker
                   selectedValue={Difficulte}
                   mode={"dialog"}
-                  onValueChange={(diff) => setDifficulte(diff)}
+                  onValueChange={(diff) => changeDiff(diff)}
                   style={style.picker}
                 >
                     <Picker.Item label="Any Category" value="-1" />
